@@ -1,8 +1,8 @@
 import tensorflow as tf
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import numpy as np
-
-def train_and_evaluate(X_train, y_train, X_test, y_test):
+import os
+def train_and_evaluate(X_train, y_train, X_test, y_test, model_name="dense_nn"):
     model = tf.keras.models.Sequential([
         tf.keras.layers.Dense(256, activation='relu', input_shape=(784,)),
         tf.keras.layers.Dropout(0.3), #Ajout de dropout pour regularisation
@@ -13,6 +13,9 @@ def train_and_evaluate(X_train, y_train, X_test, y_test):
     model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
     model.fit(X_train, y_train, epochs=10, verbose=0)
     y_pred = np.argmax(model.predict(X_test), axis=1)
+    model_path = os.path.join("models", f"{model_name}.keras")
+    model.save(model_path)
+    print(f"Model {model_name} saved to {model_path}")        
     return {
         'accuracy': accuracy_score(y_test, y_pred),
         'precision': precision_score(y_test, y_pred, average='weighted'),

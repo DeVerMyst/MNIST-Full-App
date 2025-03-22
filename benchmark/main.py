@@ -5,6 +5,7 @@ from models import logistic_regression, svc, catboost_model, dense_nn, cnn_3laye
 import time
 import pickle
 import os
+import tensorflow as tf
 
 def timer(func):
     def wrapper(*args, **kwargs):
@@ -74,14 +75,13 @@ X_predict = X_test[:1000]
 
 # Chargement des modèles et mesure du temps de prédiction
 models = {
-    "Logistic Regression": pickle.load(os.path.join("models", "logistic_regression.joblib")),
-    "SVC": pickle.load(os.path.join("models", "svc.joblib")),
-    "CatBoost": pickle.load(os.path.join("models", "catboost.joblib")),
-    "Dense NN": tf.keras.models.load_model(os.path.join("models", "dense_nn.h5")),
-    "CNN 3 Layers": tf.keras.models.load_model(os.path.join("models", "cnn_3layers.h5")),
-    "CNN 5 Layers": tf.keras.models.load_model(os.path.join("models", "cnn_5layers.h5")),
-    "CNN 5 Layers Regularized": tf.keras.models.load_model(os.path.join("models", "cnn_5layers_regularized.h5")),
-    "Transfer Learning": tf.keras.models.load_model(os.path.join("models", "transfer_learning.h5"))
+    "Logistic Regression": pickle.load(open(os.path.join("models", "LogisticRegression.pkl"), 'rb')),
+    "SVC": pickle.load(open(os.path.join("models", "svc.pkl"), 'rb')),
+    "CatBoost": pickle.load(open(os.path.join("models", "catboost.pkl"), 'rb')),
+    "Dense NN": tf.keras.models.load_model(os.path.join("models", "dense_nn.keras")),
+    "CNN 3 Layers": tf.keras.models.load_model(os.path.join("models", "cnn3.keras")),
+    "CNN 5 Layers": tf.keras.models.load_model(os.path.join("models", "cnn5.keras")),
+    "CNN 5 Layers Regularized": tf.keras.models.load_model(os.path.join("models", "cnn5r.keras"))
 }
 
 average_prediction_times = []

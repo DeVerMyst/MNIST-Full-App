@@ -1,0 +1,31 @@
+name: Benchmark Models
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  benchmark:
+    name: Run Benchmark
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install -r benchmark/requirements.txt
+
+      - name: Run Benchmark Script
+        run: python benchmark/main.py --output-dir benchmark/results
+
+      - name: Archive Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: benchmark-results
+          path: benchmark/results
