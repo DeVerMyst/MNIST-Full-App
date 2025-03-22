@@ -97,6 +97,6 @@ Les tests pour l'API sont situés dans `test/test_api.py`. Ils peuvent être ex�
 
 ## Notes
 
-* Assurez-vous d'avoir le fichier `cnn5r.keras` (ou le nom de votre modèle) dans le dossier `app`.
+* Assurez-vous d'avoir le fichier `cnn5r.keras` dans le dossier `app`.
 * Ajustez les configurations des services (ports, volumes, etc.) dans `docker-compose.yml` si nécessaire.
 
